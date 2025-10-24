@@ -9,9 +9,9 @@ export const selectUser = async () => {
 		.then((rows) => rows.at(0));
 };
 
-export const updateUser = (payload: UpdateUserRequestType) => {
-	return db
-		.insert(userTable)
-		.values(payload)
-		.onConflictDoUpdate({ set: payload, target: userTable.email });
+export const updateUser = async (payload: UpdateUserRequestType) => {
+	return db.transaction(async (tx) => {
+		await tx.delete(userTable);
+		await tx.insert(userTable).values(payload);
+	});
 };

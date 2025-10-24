@@ -92,7 +92,6 @@ function CustomPostPage() {
 					label="Location"
 					placeholder="Country, City"
 					type="text"
-					isRequired
 				/>
 				<Input
 					name="platform"
@@ -100,7 +99,7 @@ function CustomPostPage() {
 					label="Job platform"
 					placeholder="Linkedin"
 					type="text"
-					isRequired
+			
 				/>
 				<Input
 					name="recruiter"
@@ -133,7 +132,7 @@ function CustomPostPage() {
 
 const formSchema = z.object({
 	companyName: z.string(),
-	companyUrl: z.string().url().or(z.literal("")),
+	companyUrl: z.string().trim().optional(),
 	location: z.string(),
 	title: z.string(),
 	jobDescription: z.string().min(100).max(9999),
